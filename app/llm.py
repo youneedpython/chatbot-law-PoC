@@ -136,7 +136,7 @@ def build_qa_prompt():
         ]
     ).partial(dictionary_text=dictionary_text)
 
-    print(f'\nqa_prompt >>\n{qa_prompt.partial_variables}')
+    # print(f'\nqa_prompt >>\n{qa_prompt.partial_variables}')
 
     return qa_prompt
 
@@ -179,16 +179,16 @@ def stream_ai_message(user_message, session_id='default'):
         config={'configurable': {'session_id': session_id}},        
     )
 
-    print(f'대화 이력 >> {get_session_history(session_id)} \n😎\n')
-    print('=' * 50 + '\n')
-    print(f'[stream_ai_message 함수 내 출력] session_id >> {session_id}')
+    # print(f'대화 이력 >> {get_session_history(session_id)} \n😎\n')
+    # print('=' * 50 + '\n')
+    # print(f'[stream_ai_message 함수 내 출력] session_id >> {session_id}')
 
     ########################################################################
     ## vector store에서 검색된 문서 출력
     retriever = load_vectorstore().as_retriever(search_kwargs={'k': 1})
     search_results = retriever.invoke(user_message)
 
-    print(f'\nPinecone 검색 결과 >> \n{search_results[0].page_content[:100]}')
+    # print(f'\nPinecone 검색 결과 >> \n{search_results[0].page_content[:100]}')
     ########################################################################
 
 

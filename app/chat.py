@@ -38,8 +38,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-print('\n\n== start ==')
-print('before) st.session_state >>', st.session_state)
+# print('\n\n== start ==')
+# print('before) st.session_state >>', st.session_state)
 
 ## ================================================================================
 ## URL의 parameter에 session id 가져오기/저장 
@@ -60,7 +60,7 @@ if 'session_id' not in st.session_state:
 if 'message_list' not in st.session_state:
     st.session_state.message_list = []
 
-print('after) st.session_state >>', st.session_state)
+# print('after) st.session_state >>', st.session_state)
 
 
 ## ================================================================================
@@ -72,6 +72,7 @@ SUGGESTED_QUESTIONS = [
     '전세사기를 당했습니다. 어떤 법적 조치를 해야 하나요?',
     '전세사기 피해 신고 절차는 어떻게 되나요?',
     '전세사기 피해 보상을 받을 수 있는 방법이 있나요?',
+    '전세사기피해자입니다. 전세사기피해자 기준을 알려주세요.'
 ]
 
 for i, question in enumerate(SUGGESTED_QUESTIONS):
