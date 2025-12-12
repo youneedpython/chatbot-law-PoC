@@ -6,7 +6,6 @@ from llm import stream_ai_message
 st.set_page_config(page_title='전세사기피해 상담 챗봇', page_icon='🍀')
 st.title('🍀 전세사기피해 상담 챗봇')
 
-
 st.markdown("""
     <style>
     /* 모든 st.button 공통 스타일 (지금은 FAQ 버튼만 있음) */

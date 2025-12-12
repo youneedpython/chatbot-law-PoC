@@ -1,4 +1,6 @@
 import os
+import json
+from pathlib import Path
 
 from dotenv import load_dotenv
 from langchain.chains import (create_history_aware_retriever,
@@ -14,6 +16,12 @@ from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
 
 from config import answer_examples
+from logger import get_logger
+
+
+logger = get_logger('chatbot-law-PoC.llm')
+logger.info("Current working directory: %s", os.getcwd())
+logger.info('llm.py file location: %s', Path(__file__).resolve())
 
 
 ## 환경변수 읽어오기 =====================================================
@@ -81,7 +89,7 @@ def build_few_shot_examples() -> str:
     few_shot_prompt = FewShotPromptTemplate(
         examples=answer_examples,           ## 질문/답변 예시들 (전체 type은 list, 각 질문/답변 type은 dict)
         example_prompt=example_prompt,      ## 단일 예시 포맷
-        prefix='다음 질문에 답변하세요 : ', ## 예시들 위로 추가되는 텍스트(도입부)
+        prefix='다음 질문에 답변하세요 : ',   ## 예시들 위로 추가되는 텍스트(도입부)
         suffix="질문: {input}",             ## 예시들 뒤에 추가되는 텍스트(실제 사용자 질문 변수)
         input_variables=["input"],          ## suffix에서 사용할 변수
     )
@@ -91,10 +99,16 @@ def build_few_shot_examples() -> str:
     return formmated_few_shot_prompt
 
 ## [외부 사전 로드] =============================================================
-import json
-
 def load_dictionary_from_file(path='keyword_dictionary.json'):
-    with open(path, 'r', encoding='utf-8') as file:
+    base_dir = Path(__file__).resolve().parent  ## /app/app
+    file_path = base_dir / path
+
+    logger.info('Loading dictionary file')
+    logger.info('CWD:%s', os.getcwd())
+    logger.info('Base dir=%s', base_dir)
+    logger.info('Dictionary path=%s', file_path)
+
+    with open(file_path, 'r', encoding='utf-8') as file:
         return json.load(file)
 
 def build_dictionary_text(dictionary: dict) -> str:
